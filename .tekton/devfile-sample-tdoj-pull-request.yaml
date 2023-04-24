@@ -92,11 +92,6 @@ spec:
       description: Snyk Token Secret Name
       name: snyk-secret
       type: string
-    volumes:
-    - name: snyk-secret
-      secret:
-        secretName: $(params.SNYK_SECRET)
-        optional: true 
     results:
     - description: ""
       name: IMAGE_URL
@@ -283,6 +278,11 @@ spec:
       params:
       - name: SNYK_SECRET
         value: $(params.snyk-secret)
+      volumes:
+      - name: snyk-secret
+        secret:
+          secretName: $(params.SNYK_SECRET)
+          optional: true 
       runAfter:
       - clone-repository
       taskRef:
