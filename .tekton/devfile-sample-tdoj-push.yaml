@@ -107,11 +107,6 @@ spec:
     - description: ""
       name: JAVA_COMMUNITY_DEPENDENCIES
       value: $(tasks.build-container.results.JAVA_COMMUNITY_DEPENDENCIES)
-    volumes:
-    - name: snyk-secret
-      secret:
-        secretName: $(params.SNYK_SECRET)
-        optional: true 
     tasks:
     - name: init
       params:
@@ -282,6 +277,11 @@ spec:
       params:
       - name: SNYK_SECRET
         value: $(params.snyk-secret)
+      volumes:
+      - name: snyk-secret
+        secret:
+          secretName: $(params.SNYK_SECRET)
+          optional: true 
       runAfter:
       - clone-repository
       taskRef:
